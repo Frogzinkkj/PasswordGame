@@ -12,6 +12,7 @@ public class Main {
     String fPassword;
     String line;
     String[] numbers;
+   
     
 
 
@@ -28,10 +29,12 @@ public class Main {
   }
 
   public static void comp(String numbers, String password, Scanner input){
-    while (!numbers.equals(password)) {
+    int trys = 0;
+    while (!numbers.equals(password) && trys <= 10) {
       int corrects = 0;
       int halfCorrects = 0;
       boolean[] verifyReply = new boolean[password.length()];
+
       for(int i = 0; i< numbers.length();i++){
         if (numbers.charAt(i) == password.charAt(i)){
           corrects++;
@@ -50,16 +53,24 @@ public class Main {
           }
         }
       }
-    
+      trys++;
       System.out.println("Dígitos corretos: " + corrects);
       System.out.println("Dígitos deslocados: " + halfCorrects);
+      System.out.println("Você tem " + (10-trys) +" Tentativas");
       
-      System.out.println("Digite quatro Digitos separados por espaço: ");
-      String line= input.nextLine();
-      String [] newNumbers = line.split(" ");
-      numbers = String.join("",newNumbers);
+      if(trys<10){
+        System.out.println("Digite quatro Digitos separados por espaço: ");
+        String line= input.nextLine();
+        String [] newNumbers = line.split(" ");
+        numbers = String.join("",newNumbers);
+      }else{
+        System.out.println("Você excedeu o número de tentativas. A senha correta era: " + password);
+        break;
+      }
     }
-    System.out.println("Parabéns! Você acertou a senha.");
+    if(numbers.equals(password)){
+      System.out.println("Parabéns! Você acertou a senha.");
+    }
   }
 
 
