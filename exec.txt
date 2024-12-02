@@ -1,0 +1,27 @@
+public static int contarDigitosDeslocados(String tentativa, String senha) {
+    int deslocados = 0;
+    boolean[] usadosSenha = new boolean[senha.length()];
+    boolean[] usadosTentativa = new boolean[tentativa];
+    for (int i = 0; i < tentativa.length(); i++) {
+        if (tentativa.charAt(i) == senha.charAt(i)) {
+            usadosSenha[i] = true;
+            usadosTentativa[i] = true;
+        }
+    }
+
+   
+    for (int i = 0; i < tentativa.length(); i++) {
+        if (!usadosTentativa[i]) {
+            for (int j = 0; j < senha.length(); j++) {
+                if (!usadosSenha[j] && tentativa.charAt(i) == senha.charAt(j)) {
+                    deslocados++;
+                    usadosSenha[j] = true;
+
+                    break;
+                }
+            }
+        }
+    }
+
+    return deslocados;
+}
